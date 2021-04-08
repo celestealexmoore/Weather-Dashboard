@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Weather Dashboard</title>
+</head>
+<body>
+
+    <header class="heading">
+        <h1>Weather Dashboard</h1>
+    </header>
+
+
+    <section class="rightSections">
+
+        <section class="displayedCity">
+            <!--Current City to be displayed here, otherwise remain blank-->
+            <h2 id='city-name'></h2>
+            <ul>
+                <li id='temp'></li>
+                <li id='humidity'></li>
+                <li id='wind-speed'></li>
+                <li id='uvIndex'>9.49</li> <!--Not working-->
+            </ul>
+        </section>
+
+        <section class="forecast">
+            <h4>5-Day Forecast:</h4>
+            <div id="forecast-blocks-parent">
+                <input id='forecast-blocks' class="hide">
+                <input id='forecast-blocks' class="hide">
+                <input id='forecast-blocks' class="hide">
+                <input id='forecast-blocks' class="hide">
+                <input id='forecast-blocks' class="hide">
+            </div>
+        </section>
+
+    </section>
+
+
+    <section class="leftSections">
+
+        <aside class="citySearch">
+
+            <h3 id='search-city'>Search for a City:</h3>
+
+            <input id='search-bar' type="text" class="searchBar" placeholder="Where to?" style="width: 60%">
+            <button id='search-button' type="button"><i class="fa fa-search"></i></button>
+            
+        </aside>
+
+        <aside class="searchHistoryParent">
+            <h4>Previous Search History:</h4>
+            <!--enter the search history here-->
+            <input id='searchHistory' class="hide" style="width: 80%">
+            <input id='searchHistory' class="hide" style="width: 80%">
+            <input id='searchHistory' class="hide" style="width: 80%">
+            <input id='searchHistory' class="hide" style="width: 80%">
+            <input id='searchHistory' class="hide" style="width: 80%">
+            <input id='searchHistory' class="hide" style="width: 80%">
+          
+    
+        
+        </aside>
+        <footer id="random">
+            
+        </footer>
+
+    </section>
+
+    <script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
+    <script src="./script.js"></script>
+
+</body>
+</html>
