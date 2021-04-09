@@ -20,6 +20,7 @@
         <section class="displayedCity">
             <!--Current City to be displayed here, otherwise remain blank-->
             <h2 id='city-name'></h2>
+            <p id='current-day'></p>
             <ul>
                 <li id='temp'></li>
                 <li id='humidity'></li>
@@ -31,11 +32,12 @@
         <section class="forecast">
             <h4>5-Day Forecast:</h4>
             <div id="forecast-blocks-parent">
-                <input id='forecast-blocks' class="hide">
-                <input id='forecast-blocks' class="hide">
-                <input id='forecast-blocks' class="hide">
-                <input id='forecast-blocks' class="hide">
-                <input id='forecast-blocks' class="hide">
+                <div id='forecast-blocks' class="blueBlocks"></div>
+                <div id='forecast-blocks' class="blueBlocks"></div>
+                <div id='forecast-blocks' class="blueBlocks"></div>
+                <div id='forecast-blocks' class="blueBlocks"></div>
+                <div id='forecast-blocks' class="blueBlocks"></div>
+                    
             </div>
         </section>
 
@@ -56,12 +58,12 @@
         <aside class="searchHistoryParent">
             <h4>Previous Search History:</h4>
             <!--enter the search history here-->
-            <input id='searchHistory' class="hide" style="width: 80%">
-            <input id='searchHistory' class="hide" style="width: 80%">
-            <input id='searchHistory' class="hide" style="width: 80%">
-            <input id='searchHistory' class="hide" style="width: 80%">
-            <input id='searchHistory' class="hide" style="width: 80%">
-            <input id='searchHistory' class="hide" style="width: 80%">
+            <ul id='searchHistory' class="history" style="width: 80%">
+            <!-- <ul id='searchHistory' class="history" style="width: 80%">
+            <ul id='searchHistory' class="history" style="width: 80%">
+            <ul id='searchHistory' class="history" style="width: 80%">
+            <ul id='searchHistory' class="history" style="width: 80%">
+            <ul id='searchHistory' class="history" style="width: 80%"> -->
         </aside>
 
     </section>
@@ -70,6 +72,8 @@
         src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
         crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="./Assets/script.js"></script>
 
 </body>

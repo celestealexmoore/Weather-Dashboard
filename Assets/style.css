@@ -10,7 +10,7 @@ html, body{
     text-align: center;
     height: 60px;
     padding: 3px;
-    
+
 }
 
 p{
@@ -34,6 +34,12 @@ p{
 
 #city-name{
     text-align: center;
+}
+
+#current-day{
+    text-align: center;
+    font-size: 15px;
+    margin-top: -5px;
 }
 
 .displayedCity ul li{
