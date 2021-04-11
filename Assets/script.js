@@ -27,8 +27,10 @@ function getForecast(lon, lat) {
         .then((data) => {
             //select my forecast element
             console.log(data);
-            var forecastBlocks = $("#forecast-blocks");
-            for (var i=0; i< 5; i++){
+            var forecastBlocks = $("#forecast-blocks-parent"); //or just ("#forecast-blocks")
+            forecastBlocksEl = document.createElement('div');
+            forecastBlocksEl.className = '"row"';
+            for (var i = 0; i < 5; i++){
         };
     
 
