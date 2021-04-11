@@ -25,7 +25,6 @@ p{
 
 .displayedCity{
     border: 1px solid rgb(187, 185, 185);
-    border-right: none;
     background-color:transparent;
     color: black;
     margin:7px;
@@ -65,7 +64,7 @@ p{
     margin:7px;
 }
 
-#forecast-blocks{
+.forecast-blocks{
     border:1px solid rgb(69, 117, 248);
     width: 100px;
     height: 100px;
@@ -74,6 +73,7 @@ p{
     background-color: rgb(69, 117, 248);
     border-radius: 5px;
     color: white;
+    display: inline-block;
 }
 
 .leftSections{

@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./Assets/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <title>Weather Dashboard</title>
 </head>
 <body>
@@ -21,6 +22,7 @@
             <!--Current City to be displayed here, otherwise remain blank-->
             <h2 id='city-name'></h2>
             <p id='current-day'></p>
+            <img id="current-pic" alt="">
             <ul>
                 <li id='temp'></li>
                 <li id='humidity'></li>
@@ -32,7 +34,11 @@
         <section class="forecast">
             <h4>5-Day Forecast:</h4>
             <div id="forecast-blocks-parent">
-                <div id='forecast-blocks' class="blueBlocks"></div>                 
+                <div class='forecast-blocks'></div>
+                <div class='forecast-blocks'></div>
+                <div class='forecast-blocks'></div>
+                <div class='forecast-blocks'></div>
+                <div class='forecast-blocks'></div>                 
             </div>
         </section>
 
@@ -46,19 +52,13 @@
             <h3 id='search-city'>Search for a City:</h3>
 
             <input id='search-bar' type="text" class="searchBar" placeholder="Where to?" style="width: 60%">
-            <button id='search-button' type="button"><i class="fa fa-search"></i></button>
+            <button type="button" id='search-button'><i class="fa fa-search"></i></button>
             
         </aside>
 
         <aside class="searchHistoryParent">
             <h4>Previous Search History:</h4>
-            <!--enter the search history here-->
             <ul id='searchHistory' class="history" style="width: 80%">
-            <!-- <ul id='searchHistory' class="history" style="width: 80%">
-            <ul id='searchHistory' class="history" style="width: 80%">
-            <ul id='searchHistory' class="history" style="width: 80%">
-            <ul id='searchHistory' class="history" style="width: 80%">
-            <ul id='searchHistory' class="history" style="width: 80%"> -->
         </aside>
 
     </section>

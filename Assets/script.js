@@ -8,53 +8,47 @@ window.addEventListener('load', function () {
       existingHistory = [];
     } else {
       existingHistory = JSON.parse(localStorage.getItem('searchHistory'));
-}
-var historyItems = [];
-
-//when the page loads, do this:
-$(document).ready( function () {
+    };
+    var historyItems = [];
+});
 
     //display current date at top of div
-    $("#current-day").text(moment().format("dddd D/MM/YYYY")); 
+$("#current-day").text(moment().format("dddd D/MM/YYYY")); 
 
-    // Function to get the forecast, loop through only the days of the week and render data to the page
-    function getForecast(searchValue) {
-        if (!searchValue){
-            return;
+//Function to get the forecast, loop through only the days of the week and render data to the page
+function getForecast(lon, lat) {
+    // if (!lon, lat){
+    //     return;
+    // };
+    const weatherAPI = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=imperial`
+    fetch(weatherAPI)
+        //(res) is response.
+        .then((res) => res.json())
+        .then((data) => {
+            //select my forecast element
+            console.log(data);
+            var forecastBlocks = $("#forecast-blocks");
+            for (var i=0; i< 5; i++){
         };
-        const weatherAPI = `https://api.openweathermap.org/data/2.5/weather?q=${searchVal}&appid=${WEATHER_API_KEY}`
-        fetch(weatherAPI)
-            //(res) is response.
-            .then((res) => res.json())
-            .then((data) => {
-                //select my forecast element
-                var forecastBlocks = $("#forecast-blocks");
-                // Loop over all forecasts (by 3-hour increments)
-                for (var i=0; i< data.list.length; i++){
-                    // Only look at forecasts around 3:00pm
-                    if (data.list[i].dt_txt.indexOf('15:00:00') !== -1) {
-                    };
-                };
-            });
-        ;
     
+
         // Create HTML elements for the forecastBlocks
-        const { temp, humidity } = res.main;
-        const { speed } = res.wind;
+        
         temp = document.createElement('p');
         temp.classList.add('card-text');
-        temp.text("Temperature: " + temp + "℉");
+        temp.text("Temperature: " + data.current.temp + "℉");
         humidity = document.createElement('p');
         humidity.classList.add('card-text');
-        humidity.text("Humidity: " + humidity + "%");
+        humidity.text("Humidity: " + data.current.humidity + "%");
         speed = document.createElement('p');
         speed.classList.add('card-text');
-        speed.text("Speed: " + speed + " MPH")
+        speed.text("Speed: " + data.current.wind_speed + " MPH")
+        uv = document.createElement('p');
+        uv.classList.add('card-text');
+        uv.text("UV Index: " + data.current.uvi);
         $("forecast-blocks").classList.add('card-title');
         var blockFutureDates = document.createElement('h5');
-        // blockFutureDates.textContent = new Date(
-        // //something goes here
-        // ).toLocaleDateString();
+        blockFutureDates.textContent = new Date(data.current.dt).toLocaleDateString();
         var weatherIcons = document.createElement('icons');
         weatherIcons.setAttribute(
             'src',
@@ -67,75 +61,63 @@ $(document).ready( function () {
         $("forecast-blocks").appendChild(temp);
         $("forecast-blocks").appendChild(humidity);
         $("forecast-blocks").appendChild(speed);
-        };
-        
     });
+    
+};
 
-    //uv index
+//uv index
 
-    function getUVIndex(lat, lon) {
-        fetch(
-            `http://api.openweathermap.org/data/2.5/uvi?appid=d91f911bcf2c0f925fb6535547a5ddc9&lat=${lat}&lon=${lon}`
-        )
-            .then((res) => res.json())
-            .then((data) => {
-                var bodyEl = document.querySelector('.card-body');
-                var uvEl = document.createElement('p');
-                uvEl.id = 'uv';
-                uvEl.textContent = 'UV Index: ';
-                var buttonEl = document.createElement('span');
-                buttonEl.classList.add('btn', 'btn-sm');
-                buttonEl.innerHTML = data.value;
-            });
-
+function getUVIndex(lon, lat) {
+    fetch(
+        `http://api.openweathermap.org/data/2.5/uvi?appid=d91f911bcf2c0f925fb6535547a5ddc9&lat=${lat}&lon=${lon}`
+    )
+        .then((res) => res.json())
+        .then((data) => {
+            $('#uvIndex').text("Uv Index: " + data.value);
             switch (data.value) {
                 case data.value < 3:
-                buttonEl.classList.add('btn-success');
+                uvIndex.classList.add('btn-success');
                 break;
                 case data.value < 7:
-                buttonEl.classList.add('btn-warning');
+                uvIndex.classList.add('btn-warning');
                 break;
                 default:
-                buttonEl.classList.add('btn-danger');
+                uvIndex.classList.add('btn-danger');
             };
-
-            bodyEl.appendChild(uvEl);
-            uvEl.appendChild(buttonEl);
-    
-    };
-
-    //What I did with Tutor
-    //This allows the search button to function: pulls info from API and posts in displayedCity div
-
-    const searchButton = $('#search-button');
-        
-    searchButton.click(()=> {
-        //
-        const searchVal = $('#search-bar').val();
-        console.log('SEARCH VALUE---> ',searchVal);
-        const requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchVal}&appid=${WEATHER_API_KEY}`
-    
-
-        $.ajax(requestUrl).then(res => {
-            console.log('RESPONSE FROM API=> ', res)
-            //temp, humiidty
-            const { temp, humidity } = res.main
-            //wind speed
-            const { speed } = res.wind
-            const { name } = res
-
-            console.log( 'temp --> ', temp)
-            console.log('wind speed ---> ', speed)
-
-            var K = temp;
-            var degreesFah =((K-273.15)*1.8)+32;
-            Math.round(degreesFah); //How to get temp to round to whole 
-            //Convert Temperature from Kelvin to F
-
-            $('#city-name').text(name)
-            $('#temp').text("Temperature: " + degreesFah + "℉");
-            $('#humidity').text("Humidity: " + humidity + "%");
-            $('#wind-speed').text("Speed: " + speed + " MPH"); // plus sign concatonates, not commas!
+            // to get value from the third-party API, console.log data to show the response, then look for the value you need, call the element in HTML & append the data.
         });
+
+};
+
+//What I did with Tutor
+//This allows the search button to function: pulls info from API and posts in displayedCity div
+
+const searchButton = $('#search-button');
+    
+searchButton.click(()=> {
+    //
+    const WEATHER_API_KEY = '37da8c9a08447f616fa749bd4ecfb171'
+    const searchVal = $('#search-bar').val();
+    console.log('SEARCH VALUE---> ',searchVal);
+    const requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchVal}&appid=${WEATHER_API_KEY}&units=imperial`
+
+    $.ajax(requestUrl).then(res => {
+        console.log('RESPONSE FROM API=> ', res)
+        //temp, humidity
+        const { temp, humidity } = res.main
+        //wind speed
+        const { speed } = res.wind
+        const { name } = res
+        const { lon, lat } = res.coord
+
+        console.log( 'temp --> ', temp)
+        console.log('wind speed ---> ', speed)
+
+        $('#city-name').text(name)
+        $('#temp').text("Temperature: " + temp + "℉");
+        $('#humidity').text("Humidity: " + humidity + "%");
+        $('#wind-speed').text("Speed: " + speed + " MPH"); // plus sign concatonates, not commas!
+        getUVIndex(lon, lat)
+        getForecast(lon, lat)
     });
 });
