@@ -15,7 +15,8 @@ window.addEventListener('load', function () {
     //display current date at top of div
 $("#current-day").text(moment().format("dddd D/MM/YYYY")); 
 
-//Function to get the forecast, loop through only the days of the week and render data to the page
+//This does not work.
+
 function getForecast(lon, lat) {
     // if (!lon, lat){
     //     return;
@@ -27,47 +28,53 @@ function getForecast(lon, lat) {
         .then((data) => {
             //select my forecast element
             console.log(data);
-            var forecastBlocks = $("#forecast-blocks-parent"); //or just ("#forecast-blocks")
-            forecastBlocksEl = document.createElement('div');
-            forecastBlocksEl.className = '"row"';
-            for (var i = 0; i < 5; i++){
-        };
-    
+            var forecastBlocks = document.querySelectorAll("#forecast-blocks");
+            forecastBlocks.classList.add('blueBlock')
 
-        // Create HTML elements for the forecastBlocks
-        
-        temp = document.createElement('p');
-        temp.classList.add('card-text');
-        temp.text("Temperature: " + data.current.temp + "℉");
-        humidity = document.createElement('p');
-        humidity.classList.add('card-text');
-        humidity.text("Humidity: " + data.current.humidity + "%");
-        speed = document.createElement('p');
-        speed.classList.add('card-text');
-        speed.text("Speed: " + data.current.wind_speed + " MPH")
-        uv = document.createElement('p');
-        uv.classList.add('card-text');
-        uv.text("UV Index: " + data.current.uvi);
-        $("forecast-blocks").classList.add('card-title');
-        var blockFutureDates = document.createElement('h5');
-        blockFutureDates.textContent = new Date(data.current.dt).toLocaleDateString();
-        var weatherIcons = document.createElement('icons');
-        weatherIcons.setAttribute(
-            'src',
-            `http://openweathermap.org/img/w/${data.list[i].weather[0].icon}.png`
-        );
+            // forecastBlocks = document.createElement('div');
+            // forecastBlocks.className = ('blueBlock');
+            for (var i = 0; i < forecastBlocks.length; i++){
+                // Create HTML elements for the forecastBlocks
+                
 
-        // Merge together and put on page
-        forecaseBlocks.appendChild(blockFutureDates);
-        forecastBlocks.appendChild(weatherIcons);
-        $("forecast-blocks").appendChild(temp);
-        $("forecast-blocks").appendChild(humidity);
-        $("forecast-blocks").appendChild(speed);
-    });
-    
-};
+                //May not need these because I've created existing divs and styled.
+                // var column = document.createElement('div');
+                // column.classList.add('col-sm-4');
+                // var cardBlock = document.createElement('div');
+                // cardBlock.classList.add('blueBlock');
 
-//uv index
+                var blockFutureDates = document.createElement('h5');
+                blockFutureDates.classList.add('block-header')
+                blockFutureDates.textContent = new Date(data.current.dt)
+                .toLocaleDateString();
+
+                var temp = document.createElement('p');
+                temp.classList.add('block-text');
+                temp.textContent = (`"Temperature: " + ${data.current.temp} + "℉"`);
+
+                var humidity = document.createElement('p');
+                humidity.classList.add('block-text');
+                humidity.textContent = ("Humidity: " + data.current.humidity + "%");
+
+                var speed = document.createElement('p');
+                speed.classList.add('block-text');
+                speed.textContent = ("Speed: " + data.current.wind_speed + " MPH");
+
+                var uv = document.createElement('p');
+                uv.classList.add('block-text');
+                uv.textContent = ("UV Index: " + data.current.uvi);
+
+                // Merge together and put on page
+                forecastBlocks.appendChild(blockFutureDates);
+                forecastBlocks.appendChild(temp);
+                forecastBlocks.appendChild(humidity);
+                forecastBlocks.appendChild(speed);
+                forecastBlocks.appendChild(uv);
+            };
+        });
+    };
+
+//uv index -- This works!
 
 function getUVIndex(lon, lat) {
     fetch(
@@ -91,7 +98,8 @@ function getUVIndex(lon, lat) {
 
 };
 
-//What I did with Tutor
+//What I did with Tutor.
+// This works!
 //This allows the search button to function: pulls info from API and posts in displayedCity div
 
 const searchButton = $('#search-button');
