@@ -34,6 +34,7 @@ function getForecast(lon, lat) {
             // forecastBlocks = document.createElement('div');
             // forecastBlocks.className = ('blueBlock');
             for (var i = 0; i < forecastBlocks.length; i++){
+                var forecastBlocksNew = document.getElementsByClassName("forecast-blocks");
                 // Create HTML elements for the forecastBlocks
                 
 
@@ -47,6 +48,8 @@ function getForecast(lon, lat) {
                 blockFutureDates.classList.add('block-header')
                 blockFutureDates.textContent = new Date(data.current.dt)
                 .toLocaleDateString();
+
+                // var li = document.createElement("LI");
 
                 var temp = document.createElement('p');
                 temp.classList.add('block-text');
@@ -65,7 +68,14 @@ function getForecast(lon, lat) {
                 uv.textContent = ("UV Index: " + data.current.uvi);
 
                 // Merge together and put on page
-                forecastBlocks.textContent  = (blockFutureDates + temp + humidity + speed + uv);
+                forecastBlocks.textContent  = 
+                blockFutureDates + temp + humidity + speed + uv;
+
+                forecastBlocksNew[i].appendChild(blockFutureDates);
+                forecastBlocksNew[i].appendChild(temp);
+                forecastBlocksNew[i].appendChild(humidity);
+                forecastBlocksNew[i].appendChild(speed);
+                forecastBlocksNew[i].appendChild(uv);
             };
         });
     };

@@ -66,8 +66,8 @@ p{
 
 .forecast-blocks{
     border:1px solid rgb(69, 117, 248);
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     margin: 5px;
     padding: 5px;
     background-color: rgb(69, 117, 248);
@@ -77,8 +77,8 @@ p{
 }
 
 .block-text{
-    color:black;
-    font-size: 20px;
+    color: white;
+    font-size: 12px;
 }
 
 .leftSections{
