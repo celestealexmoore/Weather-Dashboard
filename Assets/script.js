@@ -13,7 +13,7 @@ window.addEventListener('load', function () {
 });
 
     //display current date at top of div
-$("#current-day").text(moment().format("dddd D/MM/YYYY")); 
+$("#current-day").text(moment().format("dddd MM/D/YYYY")); 
 
 //This does not work.
 
@@ -28,49 +28,36 @@ function getForecast(lon, lat) {
         .then((data) => {
             //select my forecast element
             console.log(data);
-            var forecastBlocks = document.querySelectorAll(".forecast-blocks");
-            // forecastBlocks.classList.add(".forecast-blocks");
-
-            // forecastBlocks = document.createElement('div');
-            // forecastBlocks.className = ('blueBlock');
-            for (var i = 0; i < forecastBlocks.length; i++){
+            var forecastBlocksNew = document.querySelectorAll(".forecast-blocks");
+    
+            for (var i = 0; i < forecastBlocksNew.length; i++){
                 var forecastBlocksNew = document.getElementsByClassName("forecast-blocks");
                 // Create HTML elements for the forecastBlocks
-                
-
-                //May not need these because I've created existing divs and styled.
-                // var column = document.createElement('div');
-                // column.classList.add('col-sm-4');
-                // var cardBlock = document.createElement('div');
-                // cardBlock.classList.add('blueBlock');
-
+            
                 var blockFutureDates = document.createElement('h5');
                 blockFutureDates.classList.add('block-header')
-                blockFutureDates.textContent = new Date(data.current.dt)
+                blockFutureDates.textContent = new Date(data.daily[i].dt * 1000)
                 .toLocaleDateString();
 
                 // var li = document.createElement("LI");
 
                 var temp = document.createElement('p');
                 temp.classList.add('block-text');
-                temp.textContent = (`"Temperature: " + ${data.current.temp} + "℉"`);
+                temp.textContent = (`Temperature: ${data.daily[i].temp.day} ℉`);
 
                 var humidity = document.createElement('p');
                 humidity.classList.add('block-text');
-                humidity.textContent = ("Humidity: " + data.current.humidity + "%");
+                humidity.textContent = (`Humidity: ${data.daily[i].humidity} %`);
 
                 var speed = document.createElement('p');
                 speed.classList.add('block-text');
-                speed.textContent = ("Speed: " + data.current.wind_speed + " MPH");
+                speed.textContent = (`Speed: ${data.daily[i].wind_speed} MPH`);
 
                 var uv = document.createElement('p');
                 uv.classList.add('block-text');
-                uv.textContent = ("UV Index: " + data.current.uvi);
+                uv.textContent = (`UV Index: ${data.daily[i].uvi}`);
 
                 // Merge together and put on page
-                forecastBlocks.textContent  = 
-                blockFutureDates + temp + humidity + speed + uv;
-
                 forecastBlocksNew[i].appendChild(blockFutureDates);
                 forecastBlocksNew[i].appendChild(temp);
                 forecastBlocksNew[i].appendChild(humidity);
