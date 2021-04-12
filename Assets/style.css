@@ -41,21 +41,14 @@ p{
     margin-top: -5px;
 }
 
+#icon{
+    margin-left: 50%;
+}
+
 .displayedCity ul li{
     list-style: none;
     color:  rgb(43, 42, 42);
 }
-
-/* #uvIndex{
-    background-color: rgb(243, 34, 69);
-    color:white;
-    width: 25px;
-    height: 20px;
-    border-radius:4px;
-    font-size: 10px;
-    text-align: center;
-    margin: 2px;
-} */
 
 .five-day-forecast{
     background-color: transparent;
