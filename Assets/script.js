@@ -1,17 +1,6 @@
 //Made the key a constant variable we need multiple API's & can just reference the variable.
 const WEATHER_API_KEY = '37da8c9a08447f616fa749bd4ecfb171'
 
-//grab existing history from localStorage IF it exists.
-window.addEventListener('load', function () {
-    var existingHistory;
-    if (!JSON.parse(localStorage.getItem('searchHistory'))) {
-      existingHistory = [];
-    } else {
-      existingHistory = JSON.parse(localStorage.getItem('searchHistory'));
-    };
-    var historyItems = [];
-});
-
 //display current date at top of div
 $("#current-day").text(moment().format("dddd MM/D/YYYY")); 
 
@@ -112,7 +101,7 @@ searchButton.click(()=> {
         const { speed } = res.wind
         const { name } = res
         const { lon, lat } = res.coord
-        const { icon } = "http://openweathermap.org/img/w/data.weather[0].icon.png";
+        const { icon } = `http://openweathermap.org/img/w/${res.weather[0].icon}.png`
     
 
         console.log( 'temp --> ', temp)
@@ -128,3 +117,29 @@ searchButton.click(()=> {
         getForecast(lon, lat)
     });
 });
+
+
+//grab existing history from localStorage IF it exists.
+window.addEventListener('load', function () {
+    var existingHistory;
+    if (!JSON.parse(localStorage.getItem('searchHistory'))) {
+      existingHistory = [];
+    } else {
+      existingHistory = JSON.parse(localStorage.getItem('searchHistory'));
+    };
+    var historyItems = [];
+});
+
+
+const handleHistory = (term) => {
+    if (existingHistory && existingHistory.length > 0) {
+      var existingEntries = JSON.parse(localStorage.getItem('searchHistory'));
+      var newHistory = [...existingEntries, term];
+      localStorage.setItem('searchHistory', JSON.stringify(newHistory));
+      // If there is no history, create one with the searchValue and save it localStorage
+    } else {
+      historyItems.push(term);
+      localStorage.setItem('searchHistory', JSON.stringify(historyItems));
+    }
+  };
+
