@@ -12,10 +12,9 @@ window.addEventListener('load', function () {
     var historyItems = [];
 });
 
-    //display current date at top of div
+//display current date at top of div
 $("#current-day").text(moment().format("dddd MM/D/YYYY")); 
 
-//This does not work.
 
 function getForecast(lon, lat) {
     // if (!lon, lat){
@@ -39,7 +38,11 @@ function getForecast(lon, lat) {
                 blockFutureDates.textContent = new Date(data.daily[i].dt * 1000)
                 .toLocaleDateString();
 
-                // var li = document.createElement("LI");
+                var icon = document.createElement('img');
+                icon.setAttribute(
+                    'src',
+                    `http://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png`
+                  );
 
                 var temp = document.createElement('p');
                 temp.classList.add('block-text');
@@ -53,16 +56,12 @@ function getForecast(lon, lat) {
                 speed.classList.add('block-text');
                 speed.textContent = (`Speed: ${data.daily[i].wind_speed} MPH`);
 
-                var uv = document.createElement('p');
-                uv.classList.add('block-text');
-                uv.textContent = (`UV Index: ${data.daily[i].uvi}`);
-
                 // Merge together and put on page
                 forecastBlocksNew[i].appendChild(blockFutureDates);
+                forecastBlocksNew[i].appendChild(icon);
                 forecastBlocksNew[i].appendChild(temp);
                 forecastBlocksNew[i].appendChild(humidity);
                 forecastBlocksNew[i].appendChild(speed);
-                forecastBlocksNew[i].appendChild(uv);
             };
         });
     };
@@ -75,7 +74,7 @@ function getUVIndex(lon, lat) {
     )
         .then((res) => res.json())
         .then((data) => {
-            $('#uvIndex').text("Uv Index: " + data.value);
+            $('#uvIndex').text("UV Index: " + data.value);
             switch (data.value) {
                 case data.value < 3:
                 uvIndex.classList.add('btn-success');
@@ -92,7 +91,6 @@ function getUVIndex(lon, lat) {
 };
 
 //What I did with Tutor.
-// This works!
 //This allows the search button to function: pulls info from API and posts in displayedCity div
 
 const searchButton = $('#search-button');
@@ -106,17 +104,23 @@ searchButton.click(()=> {
 
     $.ajax(requestUrl).then(res => {
         console.log('RESPONSE FROM API=> ', res)
+
+        // const iconCode = res.weather[0].icon;
         //temp, humidity
         const { temp, humidity } = res.main
         //wind speed
         const { speed } = res.wind
         const { name } = res
         const { lon, lat } = res.coord
+        const { icon } = "http://openweathermap.org/img/w/data.weather[0].icon.png";
+    
 
         console.log( 'temp --> ', temp)
         console.log('wind speed ---> ', speed)
 
-        $('#city-name').text(name)
+    
+        $('#city-name').text(name);
+        $('#icon').attr('src', icon);
         $('#temp').text("Temperature: " + temp + "℉");
         $('#humidity').text("Humidity: " + humidity + "%");
         $('#wind-speed').text("Speed: " + speed + " MPH"); // plus sign concatonates, not commas!
